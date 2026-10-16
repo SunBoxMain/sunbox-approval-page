@@ -4,31 +4,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
   <title>SunBox Login Log Approval</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 40px 16px;
+    }
+    .card {
+      max-width: 480px;
+      margin: auto;
+      padding: 28px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #0001;
+      text-align: center;
+    }
+    button {
+      padding: 12px 20px;
+      background: #b91c1c;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+    #status {
+      line-height: 1.6;
+    }
+  </style>
 </head>
-<body style="font-family:Arial,sans-serif;text-align:center;padding:50px;">
-  <h2>SunBox Login Log Deletion</h2>
-  <p>Review your deletion approval request.</p>
-  <p id="status">Checking approval request...</p>
+<body>
+  <main class="card">
+    <h2>SunBox Login Log Deletion</h2>
+    <p id="status">Checking approval request...</p>
+    <p id="count"></p>
 
-  <button disabled
-    style="background:#999;color:white;padding:12px 20px;border:0;border-radius:6px;">
-    Approve Permanent Deletion
-  </button>
+    <button id="approveButton" type="button" disabled>
+      Approve Permanent Deletion
+    </button>
 
-  <p>No Login Logs have been deleted.</p>
-  
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
-  const status = document.getElementById("status");
+    <p><small>Approval is recorded first. No Login Logs are deleted by this page.</small></p>
+  </main>
 
-  if (!token || !/^[a-f0-9]{64}$/.test(token)) {
-    status.textContent = "Invalid approval link.";
-  } else {
-    status.textContent = "Approval link detected. Verification pending.";
-  }
-</script>
+  <script>
+    const apiUrl =
+      "https://xhszzxngfcxvbdouorbo.supabase.co/functions/v1/approve-login-log-deletion";
 
+    const token = new URLSearchParams(location.search).get("token");
+    const status = document.getElementById("status");
+    const count = document.getElementById("count");
+    const button = document.getElementById("approveButton");
+
+    async function verifyApproval() {
+      if (!token || !/^[a-f0-9]{64}$/.test(token)) {
+        status.textContent = "Invalid approval link.";
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          apiUrl + "?token=" + encodeURIComponent(token),
+          { method: "GET", cache: "no-store" }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.valid) {
+          status.textContent =
+            data.message || "Invalid or expired approval link.";
+          return;
+        }
+
+        status.textContent =
+          "Approval request verified. Review carefully before approving.";
+        count.textContent =
+          "Eligible Login Logs: " + data.eligible_log_count;
+        button.disabled = false;
+      } catch (error) {
+        status.textContent =
+          "Unable to verify approval request. Please try again later.";
+      }
+    }
+
+    button.addEventListener("click", async () => {
+      if (button.disabled) return;
+
+      const confirmed = window.confirm(
+        "Do you explicitly approve permanent deletion of the eligible Login Logs? " +
+        "This action records your approval. No logs will be deleted by this page."
+      );
+
+      if (!confirmed) return;
+
+      button.disabled = true;
+      status.textContent = "Recording your approval...";
+
+      try {
+        const response = await fetch(
+          apiUrl + "?token=" + encodeURIComponent(token),
+          {
+            method: "POST",
+            cache: "no-store"
+          }
+        );
+
+        const data = await response.json();
+
+        status.textContent =
+          data.message || "Unable to process approval.";
+
+        if (!response.ok || !data.success) {
+          button.disabled = false;
+        } else {
+          count.textContent = "";
+          history.replaceState(null, "", location.pathname);
+        }
+      } catch (error) {
+        status.textContent =
+          "Unable to process approval. Please check the request status before retrying.";
+      }
+    });
+
+    verifyApproval();
+  </script>
 </body>
 </html>
