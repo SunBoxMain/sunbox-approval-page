@@ -17,5 +17,18 @@
   </button>
 
   <p>No Login Logs have been deleted.</p>
+  
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  const status = document.getElementById("status");
+
+  if (!token || !/^[a-f0-9]{64}$/.test(token)) {
+    status.textContent = "Invalid approval link.";
+  } else {
+    status.textContent = "Approval link detected. Verification pending.";
+  }
+</script>
+
 </body>
 </html>
