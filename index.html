@@ -5,106 +5,433 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <title>SunBox Login Log Approval</title>
+  <meta name="theme-color" content="#0d1927">
+
+  <title>SunBox | Login Log Approval</title>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 40px 16px;
+    :root {
+      --bg: #0d1927;
+      --card: #192b3e;
+      --card-dark: #102133;
+      --border: #304359;
+      --yellow: #f6bc45;
+      --yellow-hover: #ffd16d;
+      --white: #ffffff;
+      --muted: #afc0d1;
+      --success: #7ee0ac;
+      --error: #ff9a9a;
     }
-    .card {
-      max-width: 480px;
-      margin: auto;
-      padding: 28px;
-      background: white;
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 28px 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      background: radial-gradient(
+        circle at top,
+        #213b53 0%,
+        var(--bg) 58%
+      );
+
+      color: var(--white);
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    /* SUNBOX BRAND */
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .sun-logo {
+      width: 66px;
+      height: 66px;
+      object-fit: contain;
       border-radius: 12px;
-      box-shadow: 0 4px 16px #0001;
+    }
+
+    .brand-name {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .brand-subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    /* MAIN CARD */
+
+    .card {
+      padding: 30px 26px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: 0 20px 55px #0005;
       text-align: center;
     }
-    button {
-      padding: 12px 20px;
-      background: #b91c1c;
-      color: white;
-      border: 0;
-      border-radius: 6px;
-      cursor: pointer;
+
+    .shield {
+      margin-bottom: 12px;
+      font-size: 34px;
     }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 23px;
+      line-height: 1.3;
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ELIGIBLE LOGS BOX */
+
+    .log-box {
+      margin-bottom: 22px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card-dark);
+    }
+
+    .log-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    .log-count {
+      margin: 10px 0;
+      font-size: 46px;
+      font-weight: 800;
+    }
+
+    .verification {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* STATUS */
+
+    #status {
+      min-height: 44px;
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    #status.success {
+      color: var(--success);
+    }
+
+    #status.error {
+      color: var(--error);
+    }
+
+    /* APPROVAL BUTTON */
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+
+      background: var(--yellow);
+      color: var(--bg);
+
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+
+      transition: background 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--yellow-hover);
+    }
+
     button:disabled {
-      background: #999;
+      background: #596775;
+      color: #c5cdd5;
       cursor: not-allowed;
     }
-    #status {
-      line-height: 1.6;
+
+    /* FOOTER */
+
+    .notice {
+      margin: 20px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 22px;
+      color: #8fa4b9;
+      font-size: 11px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 25px 19px;
+      }
+
+      .sun-logo {
+        width: 56px;
+        height: 56px;
+      }
+
+      .brand-name {
+        font-size: 26px;
+      }
+
+      h1 {
+        font-size: 21px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <main class="card">
-    <h2>SunBox Login Log Deletion</h2>
-    <p id="status">Checking approval request...</p>
-    <p id="count"></p>
 
-    <button id="approveButton" type="button" disabled>
-      Approve Permanent Deletion
-    </button>
+  <div class="wrapper">
 
-    <p><small>Approval is recorded first. No Login Logs are deleted by this page.</small></p>
-  </main>
+    <!-- OFFICIAL SUNBOX LOGO -->
+
+    <header class="brand">
+
+      <img
+        src="./sunbox-logo.png"
+        alt="SunBox Official Logo"
+        class="sun-logo"
+      >
+
+      <div>
+        <div class="brand-name">SunBox</div>
+
+        <div class="brand-subtitle">
+          LOGIN LOG SECURITY
+        </div>
+      </div>
+
+    </header>
+
+    <!-- APPROVAL CARD -->
+
+    <main class="card">
+
+      <div class="shield" aria-hidden="true">
+        🛡️
+      </div>
+
+      <h1>Login Log Deletion Approval</h1>
+
+      <p class="description">
+        Review your retention request before
+        permanently deleting eligible login logs.
+      </p>
+
+      <section
+        class="log-box"
+        aria-label="Eligible login logs"
+      >
+
+        <div class="log-label">
+          ELIGIBLE LOGIN LOGS
+        </div>
+
+        <div class="log-count" id="count">
+          —
+        </div>
+
+        <div class="verification" id="verification">
+          Verifying request...
+        </div>
+
+      </section>
+
+      <p
+        id="status"
+        role="status"
+        aria-live="polite"
+      >
+        Checking approval request...
+      </p>
+
+      <button
+        id="approveButton"
+        type="button"
+        disabled
+      >
+        Approve Permanent Deletion
+      </button>
+
+      <p class="notice">
+        🔒 Only login logs included in this
+        approved request can be deleted.
+        This action cannot be undone.
+      </p>
+
+    </main>
+
+    <footer>
+      SUNBOX • SECURE RETENTION SYSTEM
+    </footer>
+
+  </div>
 
   <script>
     const apiUrl =
       "https://xhszzxngfcxvbdouorbo.supabase.co/functions/v1/approve-login-log-deletion";
 
-    const token = new URLSearchParams(location.search).get("token");
+    const token = new URLSearchParams(
+      window.location.search
+    ).get("token");
+
     const status = document.getElementById("status");
     const count = document.getElementById("count");
-    const button = document.getElementById("approveButton");
+    const verification =
+      document.getElementById("verification");
+    const button =
+      document.getElementById("approveButton");
+
+    let verifiedCount = null;
+    let requestFinished = false;
+
+    function setStatus(message, type = "") {
+      status.textContent = message;
+      status.className = type;
+    }
 
     async function verifyApproval() {
+
       if (!token || !/^[a-f0-9]{64}$/.test(token)) {
-        status.textContent = "Invalid approval link.";
+        verification.textContent = "Invalid link";
+        setStatus(
+          "Invalid approval link.",
+          "error"
+        );
         return;
       }
 
       try {
+
         const response = await fetch(
           apiUrl + "?token=" + encodeURIComponent(token),
-          { method: "GET", cache: "no-store" }
+          {
+            method: "GET",
+            cache: "no-store"
+          }
         );
 
         const data = await response.json();
 
         if (!response.ok || !data.valid) {
-          status.textContent =
-            data.message || "Invalid or expired approval link.";
+          verification.textContent =
+            "Verification failed";
+
+          setStatus(
+            data.message ||
+            "Invalid or expired approval link.",
+            "error"
+          );
+
           return;
         }
 
-        status.textContent =
-          "Approval request verified. Review carefully before approving.";
+        verifiedCount = data.eligible_log_count;
+
         count.textContent =
-          "Eligible Login Logs: " + data.eligible_log_count;
+          String(verifiedCount);
+
+        verification.textContent =
+          "✓ Request verified";
+
+        setStatus(
+          "Approval request verified. Please review carefully."
+        );
+
         button.disabled = false;
+
       } catch (error) {
-        status.textContent =
-          "Unable to verify approval request. Please try again later.";
+
+        verification.textContent =
+          "Unable to verify";
+
+        setStatus(
+          "Unable to verify approval request. Please try again later.",
+          "error"
+        );
       }
     }
 
     button.addEventListener("click", async () => {
-      if (button.disabled) return;
+
+      if (button.disabled || requestFinished) {
+        return;
+      }
 
       const confirmed = window.confirm(
-        "Do you explicitly approve permanent deletion of the eligible Login Logs? " +
-        "This action records your approval. No logs will be deleted by this page."
+        "Do you explicitly approve permanent deletion of " +
+        verifiedCount +
+        " eligible Login Log(s)?\n\n" +
+        "This action cannot be undone."
       );
 
-      if (!confirmed) return;
+      if (!confirmed) {
+        return;
+      }
 
       button.disabled = true;
-      status.textContent = "Recording your approval...";
+
+      button.textContent =
+        "Processing Approval...";
+
+      setStatus(
+        "Recording approval and processing deletion..."
+      );
 
       try {
+
         const response = await fetch(
           apiUrl + "?token=" + encodeURIComponent(token),
           {
@@ -115,22 +442,73 @@
 
         const data = await response.json();
 
-        status.textContent =
-          data.message || "Unable to process approval.";
-
         if (!response.ok || !data.success) {
-          button.disabled = false;
-        } else {
-          count.textContent = "";
-          history.replaceState(null, "", location.pathname);
+
+          verification.textContent =
+            data.approved
+              ? "Approval recorded"
+              : "Approval unsuccessful";
+
+          setStatus(
+            data.message ||
+            "Unable to process approval.",
+            "error"
+          );
+
+          button.textContent =
+            "Check Request Status";
+
+          // Avoid blind retries after uncertain results.
+          button.disabled = true;
+
+          return;
         }
+
+        requestFinished = true;
+
+        verification.textContent =
+          "✓ Deletion completed";
+
+        count.textContent = "0";
+
+        setStatus(
+          data.message ||
+          "Approved Login Logs permanently deleted.",
+          "success"
+        );
+
+        button.textContent =
+          "Deletion Completed";
+
+        button.disabled = true;
+
+        // Hide the approval token from the address bar.
+        history.replaceState(
+          null,
+          "",
+          location.pathname
+        );
+
       } catch (error) {
-        status.textContent =
-          "Unable to process approval. Please check the request status before retrying.";
+
+        verification.textContent =
+          "Status needs verification";
+
+        setStatus(
+          "The request may have been processed. " +
+          "Please verify its status before trying again.",
+          "error"
+        );
+
+        button.textContent =
+          "Check Request Status";
+
+        button.disabled = true;
       }
     });
 
     verifyApproval();
   </script>
+
 </body>
 </html>
