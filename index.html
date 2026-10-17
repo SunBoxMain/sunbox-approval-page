@@ -5,22 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#242424">
+  <meta name="theme-color" content="#262626">
 
   <title>SunBox | Login Log Approval</title>
 
   <style>
     :root {
-      --bg: #242424;
-      --card: #292929;
-      --input: #242424;
-      --border: #555555;
+      --background: #262626;
+      --card: #282828;
+      --field: #252525;
+      --border: #5b5b5b;
       --orange: #e9a64b;
-      --orange-hover: #f2b65f;
+      --orange-hover: #f3b75d;
       --white: #ffffff;
-      --muted: #b5b5b5;
-      --success: #90d9a6;
-      --error: #ff9a9a;
+      --muted: #b6b6b6;
+      --success: #95dfab;
+      --error: #ff9c9c;
     }
 
     * {
@@ -29,17 +29,17 @@
 
     html {
       min-height: 100%;
-      background: var(--bg);
+      background: #262626;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
       min-height: 100dvh;
-      padding: 35px 16px 65px;
+      padding: 40px 18px 110px;
 
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
 
       font-family: Arial, Helvetica, sans-serif;
@@ -47,142 +47,141 @@
 
       background: linear-gradient(
         to bottom,
-        #242424 0%,
-        #242424 64%,
-        #59432f 78%,
-        #ad7942 90%,
+        #262626 0%,
+        #262626 58%,
+        #3b3128 70%,
+        #88603a 84%,
         #e9a64b 100%
       );
+      background-attachment: fixed;
     }
 
-    .wrapper {
+    /* LARGE SUNBOX LOGIN-STYLE CARD */
+
+    .main-card {
       width: 100%;
-      max-width: 440px;
-    }
+      max-width: 430px;
+      margin: 30px auto 0;
+      padding: 52px 30px 48px;
 
-    /* FLOATING SUNBOX MASCOT */
+      background: var(--card);
+      border-radius: 36px;
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 28px;
+      box-shadow:
+        0 22px 38px rgba(0, 0, 0, 0.28);
+
       text-align: center;
     }
 
-    .floating-logo {
+    /* FLOATING MASCOT */
+
+    .logo-area {
       display: flex;
       align-items: center;
       justify-content: center;
 
-      width: 170px;
-      height: 180px;
-      margin-bottom: 12px;
-
-      animation: floatLogo 3s ease-in-out infinite;
+      height: 210px;
+      margin-bottom: 20px;
     }
 
-    .sun-logo {
+    .floating-logo {
       display: block;
-      width: 160px;
-      height: 160px;
+      width: 195px;
+      height: 195px;
       object-fit: contain;
 
       filter: drop-shadow(
-        0 15px 15px rgba(0, 0, 0, 0.35)
+        0 12px 15px rgba(0, 0, 0, 0.25)
       );
+
+      animation: floatMascot 3s ease-in-out infinite;
     }
 
-    @keyframes floatLogo {
+    @keyframes floatMascot {
       0%, 100% {
         transform: translateY(0);
       }
 
       50% {
-        transform: translateY(-14px);
+        transform: translateY(-13px);
       }
     }
 
-    .brand-subtitle {
-      color: var(--muted);
-      font-size: 15px;
+    /* WELCOME TEXT */
+
+    .welcome {
+      margin: 0;
+      color: #a9a9a9;
+      font-size: 20px;
       font-weight: 400;
     }
 
     .brand-name {
-      margin-top: 2px;
-      color: var(--white);
-      font-size: 37px;
+      margin: 12px 0 42px;
+
+      color: #ffffff;
+      font-size: 48px;
       font-weight: 800;
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
     }
 
-    /* APPROVAL CARD */
+    /* APPROVAL DETAILS */
 
-    .card {
-      padding: 32px 25px;
-      background: var(--card);
-      border-radius: 24px;
-      box-shadow: 0 18px 35px #0004;
-      text-align: center;
-    }
-
-    .shield {
-      margin-bottom: 14px;
-      font-size: 29px;
-    }
-
-    h1 {
-      margin: 0 0 14px;
-      font-size: 22px;
+    .section-heading {
+      margin: 0 0 12px;
+      color: var(--white);
+      font-size: 20px;
       font-weight: 700;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     .description {
-      margin: 0 0 26px;
+      margin: 0 0 30px;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.7;
     }
 
-    /* ELIGIBLE LOGIN LOGS */
+    .field-label {
+      display: block;
+      margin-bottom: 13px;
 
-    .log-box {
-      margin-bottom: 22px;
-      padding: 23px 18px;
-
-      background: var(--input);
-      border: 1px solid var(--border);
-      border-radius: 13px;
+      color: #e5e5e5;
+      font-size: 17px;
+      font-weight: 400;
+      text-align: left;
     }
 
-    .log-label {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
+    /* LOGIN LOG BOX */
+
+    .log-box {
+      padding: 20px 18px;
+      background: var(--field);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
     }
 
     .log-count {
-      margin: 12px 0;
+      margin: 0 0 8px;
       color: var(--white);
-      font-size: 43px;
+      font-size: 39px;
       font-weight: 800;
     }
 
     .verification {
       color: var(--orange);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
+      line-height: 1.5;
     }
 
-    /* APPROVAL STATUS */
+    /* STATUS */
 
     #status {
-      min-height: 45px;
-      margin: 0 0 22px;
+      min-height: 48px;
+      margin: 23px 0 27px;
 
       color: var(--muted);
       font-size: 13px;
@@ -198,105 +197,108 @@
       color: var(--error);
     }
 
-    /* ORANGE APPROVAL BUTTON */
+    /* ORANGE PILL BUTTON */
 
-    button {
+    .approve-button {
       display: block;
       width: 100%;
-      max-width: 310px;
-      margin: 0 auto;
-      padding: 16px 20px;
+      max-width: 235px;
+      min-height: 55px;
 
-      background: var(--orange);
-      color: #242424;
+      margin: 0 auto;
+      padding: 14px 16px;
 
       border: none;
-      border-radius: 40px;
+      border-radius: 999px;
 
+      background: var(--orange);
+      color: #292929;
+
+      font-family: inherit;
       font-size: 14px;
       font-weight: 800;
-      cursor: pointer;
+      line-height: 1.4;
 
-      transition: background 0.2s;
+      cursor: pointer;
+      transition: background 0.2s ease;
     }
 
-    button:hover:not(:disabled) {
+    .approve-button:hover:not(:disabled) {
       background: var(--orange-hover);
     }
 
-    button:disabled {
-      background: #626262;
-      color: #d0d0d0;
+    .approve-button:disabled {
+      background: #666666;
+      color: #dddddd;
       cursor: not-allowed;
     }
 
-    /* SECURITY NOTICE */
+    /* BOTTOM DIVIDER */
 
-    .notice {
-      margin: 27px 0 0;
-      padding-top: 20px;
-
-      border-top: 1px solid #444444;
-
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
+    .divider {
+      height: 1px;
+      margin: 42px 0 20px;
+      background: #555555;
     }
 
-    footer {
-      margin-top: 24px;
-      color: #ded0bc;
-      font-size: 11px;
-      text-align: center;
-      letter-spacing: 1px;
+    .security-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
     }
 
     /* MOBILE */
 
     @media (max-width: 480px) {
       body {
-        padding: 28px 16px 55px;
+        padding: 24px 14px 100px;
+      }
+
+      .main-card {
+        margin-top: 15px;
+        padding: 43px 24px 40px;
+        border-radius: 32px;
+      }
+
+      .logo-area {
+        height: 190px;
+        margin-bottom: 18px;
       }
 
       .floating-logo {
-        width: 150px;
-        height: 160px;
+        width: 185px;
+        height: 185px;
       }
 
-      .sun-logo {
-        width: 145px;
-        height: 145px;
+      .welcome {
+        font-size: 18px;
       }
 
       .brand-name {
-        font-size: 34px;
+        font-size: 44px;
+        margin-bottom: 38px;
       }
 
-      .card {
-        padding: 28px 20px;
-      }
-
-      h1 {
-        font-size: 20px;
+      .section-heading {
+        font-size: 18px;
       }
 
       .description {
         font-size: 13px;
       }
 
-      button {
-        font-size: 13px;
+      .field-label {
+        font-size: 16px;
       }
     }
-
-    /* ACCESSIBILITY */
 
     @media (prefers-reduced-motion: reduce) {
       .floating-logo {
         animation: none;
       }
 
-      button {
+      .approve-button {
         transition: none;
       }
     }
@@ -305,100 +307,92 @@
 
 <body>
 
-  <div class="wrapper">
+  <!-- ONE LARGE CARD LIKE SUNBOX LOGIN -->
 
-    <!-- FLOATING OFFICIAL SUNBOX LOGO -->
+  <main class="main-card">
 
-    <header class="brand">
+    <!-- FLOATING SUNBOX MASCOT -->
 
-      <div class="floating-logo">
-        <img
-          src="./sunbox-logo.png"
-          alt="SunBox Official Logo"
-          class="sun-logo"
-        >
-      </div>
-
-      <div class="brand-subtitle">
-        Welcome to
-      </div>
-
-      <div class="brand-name">
-        SunBox
-      </div>
-
-    </header>
-
-    <!-- LOGIN LOG DELETION APPROVAL -->
-
-    <main class="card">
-
-      <div class="shield" aria-hidden="true">
-        🔒
-      </div>
-
-      <h1>
-        Login Log Deletion Approval
-      </h1>
-
-      <p class="description">
-        Review your retention request before
-        permanently deleting eligible login logs.
-      </p>
-
-      <section
-        class="log-box"
-        aria-label="Eligible login logs"
+    <div class="logo-area">
+      <img
+        src="./sunbox-logo.png"
+        alt="SunBox Official Logo"
+        class="floating-logo"
       >
+    </div>
 
-        <div class="log-label">
-          ELIGIBLE LOGIN LOGS
-        </div>
+    <!-- WELCOME TO SUNBOX -->
 
-        <div class="log-count" id="count">
-          —
-        </div>
+    <p class="welcome">
+      Welcome to
+    </p>
 
-        <div
-          class="verification"
-          id="verification"
-        >
-          Verifying request...
-        </div>
+    <h1 class="brand-name">
+      SunBox
+    </h1>
 
-      </section>
+    <!-- APPROVAL CONTENT -->
 
-      <p
-        id="status"
-        role="status"
-        aria-live="polite"
+    <h2 class="section-heading">
+      Login Log Deletion Approval
+    </h2>
+
+    <p class="description">
+      Review your retention request before
+      permanently deleting eligible login logs.
+    </p>
+
+    <label class="field-label" for="count">
+      Eligible Login Logs
+    </label>
+
+    <div class="log-box">
+
+      <div class="log-count" id="count">
+        —
+      </div>
+
+      <div
+        class="verification"
+        id="verification"
       >
-        Checking approval request...
-      </p>
+        Verifying request...
+      </div>
 
-      <button
-        id="approveButton"
-        type="button"
-        disabled
-      >
-        Approve Permanent Deletion
-      </button>
+    </div>
 
-      <p class="notice">
-        Only login logs included in this
-        approved request can be permanently deleted.
-        This action cannot be undone.
-      </p>
+    <p
+      id="status"
+      role="status"
+      aria-live="polite"
+    >
+      Checking approval request...
+    </p>
 
-    </main>
+    <!-- APPROVAL BUTTON -->
 
-    <footer>
-      SUNBOX • SECURE RETENTION SYSTEM
-    </footer>
+    <button
+      class="approve-button"
+      id="approveButton"
+      type="button"
+      disabled
+    >
+      Approve Permanent Deletion
+    </button>
 
-  </div>
+    <!-- BOTTOM LINE LIKE LOGIN SCREEN -->
 
-  <!-- EXISTING SUPABASE APPROVAL LOGIC -->
+    <div class="divider"></div>
+
+    <p class="security-note">
+      Only login logs included in this approved
+      request can be permanently deleted.
+      This action cannot be undone.
+    </p>
+
+  </main>
+
+  <!-- EXISTING SUPABASE APPROVAL FUNCTIONALITY -->
 
   <script>
     const apiUrl =
@@ -424,20 +418,13 @@
     }
 
     async function verifyApproval() {
-
       if (!token || !/^[a-f0-9]{64}$/.test(token)) {
         verification.textContent = "Invalid link";
-
-        setStatus(
-          "Invalid approval link.",
-          "error"
-        );
-
+        setStatus("Invalid approval link.", "error");
         return;
       }
 
       try {
-
         const response = await fetch(
           apiUrl + "?token=" + encodeURIComponent(token),
           {
@@ -463,11 +450,8 @@
 
         verifiedCount = data.eligible_log_count;
 
-        count.textContent =
-          String(verifiedCount);
-
-        verification.textContent =
-          "✓ Request verified";
+        count.textContent = String(verifiedCount);
+        verification.textContent = "✓ Request verified";
 
         setStatus(
           "Approval request verified. Please review carefully."
@@ -476,9 +460,7 @@
         button.disabled = false;
 
       } catch (error) {
-
-        verification.textContent =
-          "Unable to verify";
+        verification.textContent = "Unable to verify";
 
         setStatus(
           "Unable to verify approval request. Please try again later.",
@@ -488,7 +470,6 @@
     }
 
     button.addEventListener("click", async () => {
-
       if (button.disabled || requestFinished) {
         return;
       }
@@ -500,21 +481,16 @@
         "This action cannot be undone."
       );
 
-      if (!confirmed) {
-        return;
-      }
+      if (!confirmed) return;
 
       button.disabled = true;
-
-      button.textContent =
-        "Processing Approval...";
+      button.textContent = "Processing Approval...";
 
       setStatus(
         "Recording approval and processing deletion..."
       );
 
       try {
-
         const response = await fetch(
           apiUrl + "?token=" + encodeURIComponent(token),
           {
@@ -526,7 +502,6 @@
         const data = await response.json();
 
         if (!response.ok || !data.success) {
-
           verification.textContent =
             data.approved
               ? "Approval recorded"
@@ -538,19 +513,14 @@
             "error"
           );
 
-          button.textContent =
-            "Approval Status Uncertain";
-
+          button.textContent = "Approval Status Uncertain";
           button.disabled = true;
-
           return;
         }
 
         requestFinished = true;
 
-        verification.textContent =
-          "✓ Deletion completed";
-
+        verification.textContent = "✓ Deletion completed";
         count.textContent = "0";
 
         setStatus(
@@ -559,12 +529,10 @@
           "success"
         );
 
-        button.textContent =
-          "Deletion Completed";
-
+        button.textContent = "Deletion Completed";
         button.disabled = true;
 
-        // Remove token from visible URL.
+        // Remove approval token from the visible URL.
         history.replaceState(
           null,
           "",
@@ -572,7 +540,6 @@
         );
 
       } catch (error) {
-
         verification.textContent =
           "Status needs verification";
 
@@ -582,9 +549,7 @@
           "error"
         );
 
-        button.textContent =
-          "Approval Status Uncertain";
-
+        button.textContent = "Approval Status Uncertain";
         button.disabled = true;
       }
     });
