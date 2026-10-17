@@ -5,21 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#0d1927">
+  <meta name="theme-color" content="#242424">
 
   <title>SunBox | Login Log Approval</title>
 
   <style>
     :root {
-      --bg: #0d1927;
-      --card: #192b3e;
-      --card-dark: #102133;
-      --border: #304359;
-      --yellow: #f6bc45;
-      --yellow-hover: #ffd16d;
+      --bg: #242424;
+      --card: #292929;
+      --input: #242424;
+      --border: #555555;
+      --orange: #e9a64b;
+      --orange-hover: #f2b65f;
       --white: #ffffff;
-      --muted: #afc0d1;
-      --success: #7ee0ac;
+      --muted: #b5b5b5;
+      --success: #90d9a6;
       --error: #ff9a9a;
     }
 
@@ -27,99 +27,135 @@
       box-sizing: border-box;
     }
 
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      padding: 28px 16px;
+      min-height: 100dvh;
+      padding: 35px 16px 65px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
       font-family: Arial, Helvetica, sans-serif;
-
-      background: radial-gradient(
-        circle at top,
-        #213b53 0%,
-        var(--bg) 58%
-      );
-
       color: var(--white);
+
+      background: linear-gradient(
+        to bottom,
+        #242424 0%,
+        #242424 64%,
+        #59432f 78%,
+        #ad7942 90%,
+        #e9a64b 100%
+      );
     }
 
     .wrapper {
       width: 100%;
-      max-width: 460px;
+      max-width: 440px;
     }
 
-    /* SUNBOX BRAND */
+    /* FLOATING SUNBOX MASCOT */
 
     .brand {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .floating-logo {
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      margin-bottom: 28px;
+
+      width: 170px;
+      height: 180px;
+      margin-bottom: 12px;
+
+      animation: floatLogo 3s ease-in-out infinite;
     }
 
     .sun-logo {
-      width: 66px;
-      height: 66px;
+      display: block;
+      width: 160px;
+      height: 160px;
       object-fit: contain;
-      border-radius: 12px;
+
+      filter: drop-shadow(
+        0 15px 15px rgba(0, 0, 0, 0.35)
+      );
+    }
+
+    @keyframes floatLogo {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 400;
     }
 
     .brand-name {
-      font-size: 30px;
+      margin-top: 2px;
+      color: var(--white);
+      font-size: 37px;
       font-weight: 800;
       letter-spacing: -1px;
     }
 
-    .brand-subtitle {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-    }
-
-    /* MAIN CARD */
+    /* APPROVAL CARD */
 
     .card {
-      padding: 30px 26px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
+      padding: 32px 25px;
       background: var(--card);
-      box-shadow: 0 20px 55px #0005;
+      border-radius: 24px;
+      box-shadow: 0 18px 35px #0004;
       text-align: center;
     }
 
     .shield {
-      margin-bottom: 12px;
-      font-size: 34px;
+      margin-bottom: 14px;
+      font-size: 29px;
     }
 
     h1 {
-      margin: 0 0 12px;
-      font-size: 23px;
-      line-height: 1.3;
+      margin: 0 0 14px;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.35;
     }
 
     .description {
-      margin: 0 0 24px;
+      margin: 0 0 26px;
       color: var(--muted);
       font-size: 14px;
       line-height: 1.7;
     }
 
-    /* ELIGIBLE LOGS BOX */
+    /* ELIGIBLE LOGIN LOGS */
 
     .log-box {
       margin-bottom: 22px;
-      padding: 22px;
+      padding: 23px 18px;
+
+      background: var(--input);
       border: 1px solid var(--border);
-      border-radius: 15px;
-      background: var(--card-dark);
+      border-radius: 13px;
     }
 
     .log-label {
@@ -130,22 +166,24 @@
     }
 
     .log-count {
-      margin: 10px 0;
-      font-size: 46px;
+      margin: 12px 0;
+      color: var(--white);
+      font-size: 43px;
       font-weight: 800;
     }
 
     .verification {
-      color: var(--yellow);
+      color: var(--orange);
       font-size: 12px;
       font-weight: 600;
     }
 
-    /* STATUS */
+    /* APPROVAL STATUS */
 
     #status {
-      min-height: 44px;
-      margin: 0 0 20px;
+      min-height: 45px;
+      margin: 0 0 22px;
+
       color: var(--muted);
       font-size: 13px;
       line-height: 1.7;
@@ -160,16 +198,20 @@
       color: var(--error);
     }
 
-    /* APPROVAL BUTTON */
+    /* ORANGE APPROVAL BUTTON */
 
     button {
+      display: block;
       width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 12px;
+      max-width: 310px;
+      margin: 0 auto;
+      padding: 16px 20px;
 
-      background: var(--yellow);
-      color: var(--bg);
+      background: var(--orange);
+      color: #242424;
+
+      border: none;
+      border-radius: 40px;
 
       font-size: 14px;
       font-weight: 800;
@@ -179,21 +221,22 @@
     }
 
     button:hover:not(:disabled) {
-      background: var(--yellow-hover);
+      background: var(--orange-hover);
     }
 
     button:disabled {
-      background: #596775;
-      color: #c5cdd5;
+      background: #626262;
+      color: #d0d0d0;
       cursor: not-allowed;
     }
 
-    /* FOOTER */
+    /* SECURITY NOTICE */
 
     .notice {
-      margin: 20px 0 0;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
+      margin: 27px 0 0;
+      padding-top: 20px;
+
+      border-top: 1px solid #444444;
 
       color: var(--muted);
       font-size: 12px;
@@ -201,8 +244,8 @@
     }
 
     footer {
-      margin-top: 22px;
-      color: #8fa4b9;
+      margin-top: 24px;
+      color: #ded0bc;
       font-size: 11px;
       text-align: center;
       letter-spacing: 1px;
@@ -211,21 +254,50 @@
     /* MOBILE */
 
     @media (max-width: 480px) {
-      .card {
-        padding: 25px 19px;
+      body {
+        padding: 28px 16px 55px;
+      }
+
+      .floating-logo {
+        width: 150px;
+        height: 160px;
       }
 
       .sun-logo {
-        width: 56px;
-        height: 56px;
+        width: 145px;
+        height: 145px;
       }
 
       .brand-name {
-        font-size: 26px;
+        font-size: 34px;
+      }
+
+      .card {
+        padding: 28px 20px;
       }
 
       h1 {
-        font-size: 21px;
+        font-size: 20px;
+      }
+
+      .description {
+        font-size: 13px;
+      }
+
+      button {
+        font-size: 13px;
+      }
+    }
+
+    /* ACCESSIBILITY */
+
+    @media (prefers-reduced-motion: reduce) {
+      .floating-logo {
+        animation: none;
+      }
+
+      button {
+        transition: none;
       }
     }
   </style>
@@ -235,35 +307,39 @@
 
   <div class="wrapper">
 
-    <!-- OFFICIAL SUNBOX LOGO -->
+    <!-- FLOATING OFFICIAL SUNBOX LOGO -->
 
     <header class="brand">
 
-      <img
-        src="./sunbox-logo.png"
-        alt="SunBox Official Logo"
-        class="sun-logo"
-      >
+      <div class="floating-logo">
+        <img
+          src="./sunbox-logo.png"
+          alt="SunBox Official Logo"
+          class="sun-logo"
+        >
+      </div>
 
-      <div>
-        <div class="brand-name">SunBox</div>
+      <div class="brand-subtitle">
+        Welcome to
+      </div>
 
-        <div class="brand-subtitle">
-          LOGIN LOG SECURITY
-        </div>
+      <div class="brand-name">
+        SunBox
       </div>
 
     </header>
 
-    <!-- APPROVAL CARD -->
+    <!-- LOGIN LOG DELETION APPROVAL -->
 
     <main class="card">
 
       <div class="shield" aria-hidden="true">
-        🛡️
+        🔒
       </div>
 
-      <h1>Login Log Deletion Approval</h1>
+      <h1>
+        Login Log Deletion Approval
+      </h1>
 
       <p class="description">
         Review your retention request before
@@ -283,7 +359,10 @@
           —
         </div>
 
-        <div class="verification" id="verification">
+        <div
+          class="verification"
+          id="verification"
+        >
           Verifying request...
         </div>
 
@@ -306,8 +385,8 @@
       </button>
 
       <p class="notice">
-        🔒 Only login logs included in this
-        approved request can be deleted.
+        Only login logs included in this
+        approved request can be permanently deleted.
         This action cannot be undone.
       </p>
 
@@ -318,6 +397,8 @@
     </footer>
 
   </div>
+
+  <!-- EXISTING SUPABASE APPROVAL LOGIC -->
 
   <script>
     const apiUrl =
@@ -346,10 +427,12 @@
 
       if (!token || !/^[a-f0-9]{64}$/.test(token)) {
         verification.textContent = "Invalid link";
+
         setStatus(
           "Invalid approval link.",
           "error"
         );
+
         return;
       }
 
@@ -456,9 +539,8 @@
           );
 
           button.textContent =
-            "Check Request Status";
+            "Approval Status Uncertain";
 
-          // Avoid blind retries after uncertain results.
           button.disabled = true;
 
           return;
@@ -482,7 +564,7 @@
 
         button.disabled = true;
 
-        // Hide the approval token from the address bar.
+        // Remove token from visible URL.
         history.replaceState(
           null,
           "",
@@ -501,7 +583,7 @@
         );
 
         button.textContent =
-          "Check Request Status";
+          "Approval Status Uncertain";
 
         button.disabled = true;
       }
