@@ -12,13 +12,11 @@
   <style>
     :root {
       --background: #262626;
-      --card: #282828;
-      --field: #252525;
-      --border: #5b5b5b;
+      --card: #292929;
       --orange: #e9a64b;
-      --orange-hover: #f3b75d;
       --white: #ffffff;
-      --muted: #b6b6b6;
+      --muted: #b7b7b7;
+      --border: #555555;
       --success: #95dfab;
       --error: #ff9c9c;
     }
@@ -36,11 +34,11 @@
       margin: 0;
       min-height: 100vh;
       min-height: 100dvh;
-      padding: 40px 18px 110px;
+      padding: 145px 18px 90px;
 
       display: flex;
-      align-items: flex-start;
       justify-content: center;
+      align-items: flex-start;
 
       font-family: Arial, Helvetica, sans-serif;
       color: var(--white);
@@ -48,50 +46,65 @@
       background: linear-gradient(
         to bottom,
         #262626 0%,
-        #262626 58%,
-        #3b3128 70%,
-        #88603a 84%,
+        #262626 55%,
+        #48382b 73%,
+        #9e7040 87%,
         #e9a64b 100%
       );
+
       background-attachment: fixed;
     }
 
-    /* LARGE SUNBOX LOGIN-STYLE CARD */
+    /* ONE LARGE ROUNDED CARD */
 
     .main-card {
+      position: relative;
+
       width: 100%;
       max-width: 430px;
-      margin: 30px auto 0;
-      padding: 52px 30px 48px;
+      min-height: 670px;
+
+      padding: 128px 30px 45px;
 
       background: var(--card);
-      border-radius: 36px;
+      border-radius: 34px;
 
       box-shadow:
-        0 22px 38px rgba(0, 0, 0, 0.28);
+        0 22px 42px rgba(0, 0, 0, 0.28);
 
       text-align: center;
     }
 
-    /* FLOATING MASCOT */
+    /* LOGO OVERLAPS TOP BORDER */
 
     .logo-area {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute;
 
-      height: 210px;
-      margin-bottom: 20px;
+      top: -95px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: 190px;
+      height: 190px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      z-index: 2;
+      pointer-events: none;
     }
 
     .floating-logo {
       display: block;
-      width: 195px;
-      height: 195px;
+
+      width: 190px;
+      height: 190px;
+
       object-fit: contain;
 
       filter: drop-shadow(
-        0 12px 15px rgba(0, 0, 0, 0.25)
+        0 10px 12px rgba(0, 0, 0, 0.22)
       );
 
       animation: floatMascot 3s ease-in-out infinite;
@@ -103,41 +116,44 @@
       }
 
       50% {
-        transform: translateY(-13px);
+        transform: translateY(-10px);
       }
     }
 
-    /* WELCOME TEXT */
+    /* SUNBOX TITLE */
 
     .welcome {
       margin: 0;
-      color: #a9a9a9;
-      font-size: 20px;
+      color: #b0b0b0;
+
+      font-size: 19px;
       font-weight: 400;
     }
 
     .brand-name {
-      margin: 12px 0 42px;
+      margin: 12px 0 35px;
 
-      color: #ffffff;
-      font-size: 48px;
+      color: var(--white);
+      font-size: 46px;
       font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.15;
+      letter-spacing: -1.3px;
+      line-height: 1.1;
     }
 
-    /* APPROVAL DETAILS */
+    /* APPROVAL INFORMATION */
 
     .section-heading {
       margin: 0 0 12px;
+
       color: var(--white);
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
       line-height: 1.4;
     }
 
     .description {
       margin: 0 0 30px;
+
       color: var(--muted);
       font-size: 14px;
       line-height: 1.7;
@@ -145,26 +161,25 @@
 
     .field-label {
       display: block;
-      margin-bottom: 13px;
 
-      color: #e5e5e5;
-      font-size: 17px;
-      font-weight: 400;
+      margin-bottom: 12px;
+
+      color: #eeeeee;
+      font-size: 16px;
       text-align: left;
     }
 
-    /* LOGIN LOG BOX */
-
     .log-box {
-      padding: 20px 18px;
-      background: var(--field);
-      border: 2px solid var(--border);
+      padding: 19px 18px;
+
+      background: #252525;
+      border: 2px solid #555555;
       border-radius: 12px;
-      text-align: center;
     }
 
     .log-count {
       margin: 0 0 8px;
+
       color: var(--white);
       font-size: 39px;
       font-weight: 800;
@@ -177,10 +192,11 @@
       line-height: 1.5;
     }
 
-    /* STATUS */
+    /* REQUEST STATUS */
 
     #status {
-      min-height: 48px;
+      min-height: 46px;
+
       margin: 23px 0 27px;
 
       color: var(--muted);
@@ -197,12 +213,13 @@
       color: var(--error);
     }
 
-    /* ORANGE PILL BUTTON */
+    /* ORANGE APPROVAL BUTTON */
 
     .approve-button {
       display: block;
+
       width: 100%;
-      max-width: 235px;
+      max-width: 245px;
       min-height: 55px;
 
       margin: 0 auto;
@@ -224,7 +241,7 @@
     }
 
     .approve-button:hover:not(:disabled) {
-      background: var(--orange-hover);
+      background: #f4b85f;
     }
 
     .approve-button:disabled {
@@ -233,42 +250,46 @@
       cursor: not-allowed;
     }
 
-    /* BOTTOM DIVIDER */
+    /* DIVIDER AND FOOTNOTE */
 
     .divider {
       height: 1px;
-      margin: 42px 0 20px;
-      background: #555555;
+
+      margin: 40px 0 19px;
+
+      background: var(--border);
     }
 
     .security-note {
       margin: 0;
+
       color: var(--muted);
       font-size: 12px;
       line-height: 1.8;
     }
 
-    /* MOBILE */
+    /* SMALL PHONE SCREENS */
 
     @media (max-width: 480px) {
       body {
-        padding: 24px 14px 100px;
+        padding: 128px 14px 85px;
       }
 
       .main-card {
-        margin-top: 15px;
-        padding: 43px 24px 40px;
-        border-radius: 32px;
+        min-height: 650px;
+        padding: 117px 24px 39px;
+        border-radius: 31px;
       }
 
       .logo-area {
-        height: 190px;
-        margin-bottom: 18px;
+        top: -88px;
+        width: 176px;
+        height: 176px;
       }
 
       .floating-logo {
-        width: 185px;
-        height: 185px;
+        width: 176px;
+        height: 176px;
       }
 
       .welcome {
@@ -276,8 +297,8 @@
       }
 
       .brand-name {
-        font-size: 44px;
-        margin-bottom: 38px;
+        font-size: 43px;
+        margin-bottom: 34px;
       }
 
       .section-heading {
@@ -286,10 +307,6 @@
 
       .description {
         font-size: 13px;
-      }
-
-      .field-label {
-        font-size: 16px;
       }
     }
 
@@ -307,11 +324,9 @@
 
 <body>
 
-  <!-- ONE LARGE CARD LIKE SUNBOX LOGIN -->
-
   <main class="main-card">
 
-    <!-- FLOATING SUNBOX MASCOT -->
+    <!-- HALF OUTSIDE, HALF INSIDE THE CARD -->
 
     <div class="logo-area">
       <img
@@ -321,7 +336,7 @@
       >
     </div>
 
-    <!-- WELCOME TO SUNBOX -->
+    <!-- SUNBOX HEADING -->
 
     <p class="welcome">
       Welcome to
@@ -331,7 +346,7 @@
       SunBox
     </h1>
 
-    <!-- APPROVAL CONTENT -->
+    <!-- APPROVAL DETAILS -->
 
     <h2 class="section-heading">
       Login Log Deletion Approval
@@ -369,7 +384,7 @@
       Checking approval request...
     </p>
 
-    <!-- APPROVAL BUTTON -->
+    <!-- PERMANENT DELETION BUTTON -->
 
     <button
       class="approve-button"
@@ -379,8 +394,6 @@
     >
       Approve Permanent Deletion
     </button>
-
-    <!-- BOTTOM LINE LIKE LOGIN SCREEN -->
 
     <div class="divider"></div>
 
@@ -392,7 +405,7 @@
 
   </main>
 
-  <!-- EXISTING SUPABASE APPROVAL FUNCTIONALITY -->
+  <!-- EXISTING SUPABASE APPROVAL LOGIC -->
 
   <script>
     const apiUrl =
@@ -532,7 +545,6 @@
         button.textContent = "Deletion Completed";
         button.disabled = true;
 
-        // Remove approval token from the visible URL.
         history.replaceState(
           null,
           "",
